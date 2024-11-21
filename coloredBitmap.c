@@ -18,17 +18,20 @@ float coloredBitmap(int w, int h, char* unit) {
 
         // Converting to kilobits
     } else if (strcmp(unit, "ko") == 0) {
-        return (coloredBitmapSize * 8) / 1024.0;
+        return coloredBitmapSize / 1024.0;
 
         // Converting to megabits
     } else if (strcmp(unit, "mo") == 0) {
-        return (coloredBitmapSize * 8) / (1024.0 * 1024.0);
+        return (coloredBitmapSize /1024.0 ) / 1024.0;
 
         // Converting to gigabits
     } else if (strcmp(unit, "go") == 0) {
-        return (coloredBitmapSize * 8) / (1024.0 * 1024.0 * 1024.0);
+        return ((coloredBitmapSize /1024.0 )/1024.0) /1024.0;
     }
+    return coloredBitmapSize;
 
     return 0;
 }
 
+
+  

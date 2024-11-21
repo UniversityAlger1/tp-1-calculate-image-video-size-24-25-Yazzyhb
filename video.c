@@ -13,40 +13,56 @@
 
 float video(int w, int h, int durationMovie, int durationCredits, int fps, char* unit) {
    //size of colored image (3 Bytes)
-    int colorFrameSizeBytes = w * h * 3;   
+    float colorFrameSize = w * h * 3*durationMovie * fps;   
    //size of black and white image (1 Byte)
-    int bwFrameSizeBytes = w * h * 1;     
-
-    // Total frames in the video
-    //colored
-    int colorFrames = durationMovie * fps;
-    //black and white
-    int bwFrames = durationCredits * fps;
+    float bwFrameSize = w * h * 1*durationCredits * fps;     
 
    //total size in bytes 
-    int totalSizeBytes = (colorFrames * colorFrameSizeBytes) + (bwFrames * bwFrameSizeBytes);
+    float totalSizeBytes = colorFrameSize *8 + bwFrameSize*1;
 
      //converting depending on specified unit
 
      //bytes
     if (strcmp(unit, "bt") == 0) {
-        return totalSizeBytes;
+        return totalSizeBytes/8;
 
 
      //Kilobits
     } else if (strcmp(unit, "ko") == 0) {
-        return (totalSizeBytes * 8) / 1024.0;
+        return (totalSizeBytes / 8) / 1024.0;
 
 
       //Megabits
     } else if (strcmp(unit, "mo") == 0) {
-        return (totalSizeBytes * 8) / (1024.0 * 1024.0);
+        return ((totalSizeBytes /8)/1024)/1024;
 
 
       //gigabits
     } else if (strcmp(unit, "go") == 0) {
-        return (totalSizeBytes * 8) / (1024.0 * 1024.0 * 1024.0);
+        return (((totalSizeBytes /8) /1024)/ 1024)/1024;
     }
 
     return 0;
+}
+float video(int w, int h, int durationMovie, int durationCredits, int fps, char* unit) {
+   // YOUR CODE HERE - BEGIN
+  // Calculer la taille d'un frame en bits pour chaque section
+    float colorFrameSize = w * h * 3 *fps*durationMovie; // Section couleur : 3 octets/pixel
+    float bwFrameSize = w * h* fps*durationCredits;    // Section noir et blanc : 1 octet/pixel
+    // Taille totale de la video
+    float totalSize = colorFrameSize *8 + bwFrameSize*1;
+
+    // Conversion en fonction de l'unité
+    if (strcmp(unit, "bt") == 0) {
+        return totalSize / 8; // Convertir en octets
+    } else if (strcmp(unit, "ko") == 0) {
+        return (totalSize /8)/1024; // Convertir en kilooctets
+    } else if (strcmp(unit, "mo") == 0) {
+        return ((totalSize /8)/1024)/1024; // Convertir en mégaoctets
+    } else if (strcmp(unit, "go") == 0) {
+        return (((totalSize /8) /1024)/ 1024)/1024; // Convertir en gigaoctes
+    }else 
+    return totalSize;
+   // YOUR CODE HERE - END
+   return 0;
 }
